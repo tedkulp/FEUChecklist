@@ -9,7 +9,7 @@
 
 if( !isset($gCms) ) exit;
 
-$entryarray = array();
+$itemarray = array();
 
 $query = "SELECT * FROM ".cms_db_prefix()."module_feuchecklist_items ORDER BY order_num ASC";
 $dbresult = $db->Execute($query);
@@ -27,7 +27,7 @@ while ($dbresult && $row = $dbresult->FetchRow())
 	$onerow->editlink = $this->CreateLink($id, 'edititem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/edit.gif', $this->Lang('edit'),'','','systemicon'), array('item_id' => $row['id']));
 	$onerow->deletelink = $this->CreateLink($id, 'deleteitem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/delete.gif', $this->Lang('delete'),'','','systemicon'), array('item_id' => $row['id']), $this->Lang('areyousure'));
 
-	$entryarray[] = $onerow;
+	$itemarray[] = $onerow;
 }
 
 $smarty->assign_by_ref('items', $itemarray);
