@@ -12,3 +12,4 @@ $lang['reference'] = 'Reference';
 $lang['itemadded'] = 'Item Added';
 $lang['itemdeleted'] = 'Item Deleted';
 $lang['itemupdated'] = 'Item Updated';
+$lang['itemmoved'] = 'Item Moved';

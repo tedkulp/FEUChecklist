@@ -23,6 +23,19 @@ while ($dbresult && $row = $dbresult->FetchRow())
 		$onerow->$k = $v;
 	}
 
+	$max_order_num = $db->GetOne("SELECT max(order_num) FROM ".cms_db_prefix()."module_feuchecklist_items");
+
+	$arrows = '';
+	if ($onerow->order_num > 1)
+	{
+		$arrows .= $onerow->editlink = $this->CreateLink($id, 'moveitem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/sort_up.gif', $this->Lang('moveup'),'','','systemicon'), array('item_id' => $row['id'], 'move' => 'up'));
+	}
+	if ($onerow->order_num < $max_order_num)
+	{
+		$arrows .= $onerow->editlink = $this->CreateLink($id, 'moveitem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/sort_down.gif', $this->Lang('movedown'),'','','systemicon'), array('item_id' => $row['id'], 'move' => 'down'));
+	}
+	$onerow->arrows = $arrows;
+
 	$onerow->editurl = $this->CreateLink($id, 'edititem', $returnid, '', array('item_id' => $row['id']), '', true);
 	$onerow->editlink = $this->CreateLink($id, 'edititem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/edit.gif', $this->Lang('edit'),'','','systemicon'), array('item_id' => $row['id']));
 	$onerow->deletelink = $this->CreateLink($id, 'deleteitem', $returnid, $gCms->variables['admintheme']->DisplayImage('icons/system/delete.gif', $this->Lang('delete'),'','','systemicon'), array('item_id' => $row['id']), $this->Lang('areyousure'));

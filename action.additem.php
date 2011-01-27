@@ -44,8 +44,10 @@ if (isset($params['submit']))
 		$max_order_num = $db->GetOne("SELECT max(order_num) FROM " . cms_db_prefix() . "module_feuchecklist_items");
 		if (!$max_order_num)
 		{
-			$max_order_num = 1;
+			$max_order_num = 0;
 		}
+
+		$max_order_num++;
 
 		$time = trim($db->DBTimeStamp(time()), "'");
 		$query = 'INSERT INTO ' . cms_db_prefix() . 'module_feuchecklist_items ('.implode(',', $field_names) .',create_date,modified_date,order_num) VALUES ('.implode(',',array_fill(0, count($field_names), '?')).',?,?,?)';
