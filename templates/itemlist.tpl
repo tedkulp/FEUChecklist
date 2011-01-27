@@ -15,6 +15,7 @@
 			<th>{$mod->Lang('id')}</th>
 			<th>{$mod->Lang('subject')}</th>
 			<th>{$mod->Lang('reference')}</th>
+			<th>{$mod->Lang('due_date')}</th>
 			<th class="pageicon">&nbsp;</th>
 			<th class="pageicon">&nbsp;</th>
 			<th class="pageicon">&nbsp;</th>
@@ -27,6 +28,7 @@
 			<td>{$entry->id}</td>
 			<td><a href="{$entry->editurl}">{$entry->subject}</a></td>
 			<td>{$entry->reference}</td>
+			<td>{$entry->due_date|date_format}</td>
 			<td>{$entry->arrows}</td>
 			<td>{$entry->editlink}</td>
 			<td>{$entry->deletelink}</td>

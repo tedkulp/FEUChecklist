@@ -20,11 +20,16 @@ if (isset($params['cancel']))
 	$this->Redirect($id, 'defaultadmin', $returnid);
 }
 
-$field_names = array('subject', 'reference');
+$field_names = array('subject', 'reference', 'due_date');
 
 $item_id = get_parameter_value($params, 'item_id', '');
 $subject = get_parameter_value($params, 'subject', '');
 $reference = get_parameter_value($params, 'reference', '');
+$due_date = get_parameter_value($params, 'due_date', '');
+if (isset($_POST['due_dateMonth']))
+{
+	$due_date = sprintf('%04d-%02d-%02d 23:59:59', $_POST['due_dateYear'], $_POST['due_dateMonth'], $_POST['due_dateDay']);
+}
 
 if (isset($params['submit']))
 {
@@ -115,6 +120,7 @@ else
 		$subject = $row['subject'];
 		$reference = $row['reference'];
 		$filename = $row['filename'];
+		$due_date = $row['due_date'];
 	}
 }
 
@@ -125,6 +131,8 @@ $smarty->assign('inputsubject', $this->CreateInputText($id, 'subject', $subject,
 $smarty->assign('inputreference', $this->CreateInputText($id, 'reference', $reference, 30, 255));
 $smarty->assign('inputfile', $this->CreateFileUploadInput($id, 'file', '', 80));
 $smarty->assign('filename', $filename);
+$smarty->assign('inputdue_date', $this->CreateInputText($id, 'due_date', $due_date, 30, 255));
+$smarty->assign('selectdue_date', $due_date);
 
 $smarty->assign('hidden', $this->CreateInputHidden($id, 'item_id', $item_id));
 $smarty->assign('submit', $this->CreateInputSubmit($id, 'submit', lang('submit')));

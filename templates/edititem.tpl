@@ -18,6 +18,10 @@
 		<p class="pageinput">{$inputreference}</p>
 	</div>
 	<div class="pageoverflow">
+		<p class="pagetext">*{$mod->Lang('due_date')}:</p>
+		<p class="pageinput">{html_select_date prefix='due_date' time=$selectdue_date start_year='-5' end_year='+5'}</p>
+	</div>
+	<div class="pageoverflow">
 		<p class="pagetext">{$mod->Lang('file')}:</p>
 		{if $filename}
 			<p class="pageinput"><em>{$mod->Lang('existingfile')}:<br />{$filename}</em></p>

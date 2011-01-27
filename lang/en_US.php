@@ -15,3 +15,4 @@ $lang['itemupdated'] = 'Item Updated';
 $lang['itemmoved'] = 'Item Moved';
 $lang['file'] = 'File';
 $lang['existingfile'] = 'Existing File';
+$lang['due_date'] = 'Due Date';

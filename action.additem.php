@@ -20,10 +20,15 @@ if (isset($params['cancel']))
 	$this->Redirect($id, 'defaultadmin', $returnid);
 }
 
-$field_names = array('subject', 'reference');
+$field_names = array('subject', 'reference', 'due_date');
 
 $subject = get_parameter_value($params, 'subject', '');
 $reference = get_parameter_value($params, 'reference', '');
+$due_date = get_parameter_value($params, 'due_date', '');
+if (isset($_POST['due_dateMonth']))
+{
+	$due_date = sprintf('%04d-%02d-%02d 23:59:59', $_POST['due_dateYear'], $_POST['due_dateMonth'], $_POST['due_dateDay']);
+}
 
 if (isset($params['submit']))
 {
@@ -41,14 +46,12 @@ if (isset($params['submit']))
 	$size = 0;
 	$mime_type = '';
 	$destdir = $this->GetItemUploadDirectory($item_id);
-	if (!$error)
+	if (!$error && isset($_FILES[$id.'file']) && $_FILES[$id.'file']['tmp_name'] != '' && $_FILES[$id.'file']['name'] != '')
 	{
-		if (isset($_FILES[$id.'file']))
-		{
-			$filename = $_FILES[$id.'file']['name'];
-			$size = $_FILES[$id.'file']['size'];
-			$mime_type = $_FILES[$id.'file']['type'];
-		}
+		$filename = $_FILES[$id.'file']['name'];
+		$size = $_FILES[$id.'file']['size'];
+		$mime_type = $_FILES[$id.'file']['type'];
+
 		cge_dir::mkdirr($destdir);
 		if (!is_dir($destdir))
 			die('directory still does not exist');
@@ -123,6 +126,8 @@ $smarty->assign('endform', $this->CreateFormEnd());
 $smarty->assign('inputsubject', $this->CreateInputText($id, 'subject', $subject, 30, 255));
 $smarty->assign('inputreference', $this->CreateInputText($id, 'reference', $reference, 30, 255));
 $smarty->assign('inputfile', $this->CreateFileUploadInput($id, 'file', '', 80));
+$smarty->assign('inputdue_date', $this->CreateInputText($id, 'due_date', $due_date, 30, 255));
+$smarty->assign('selectdue_date', $due_date);
 
 $smarty->assign('hidden', '');
 $smarty->assign('submit', $this->CreateInputSubmit($id, 'submit', lang('submit')));
