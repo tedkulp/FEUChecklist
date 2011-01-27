@@ -17,6 +17,14 @@ if (!$this->CheckPermission('Modify FEUChecklist'))
 
 $item_id = get_parameter_value($params, 'item_id', '');
 
+$destdir = $this->GetItemUploadDirectory($item_id);
+$old_filename = $db->GetOne("SELECT filename FROM ".cms_db_prefix() . "module_feuchecklist_items WHERE id = ?", array($item_id));
+if ($old_filename)
+{
+	@unlink(cms_join_path($destdir, $old_filename));
+	@rmdir($destdir);
+}
+
 $db->Execute("DELETE FROM ".cms_db_prefix()."module_feuchecklist_checked_items WHERE item_id = ?", array($item_id));
 
 $db->Execute("DELETE FROM ".cms_db_prefix()."module_feuchecklist_items WHERE id = ?", array($item_id));

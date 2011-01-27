@@ -130,6 +130,21 @@ class FEUChecklist extends CGExtensions
 	{
 	}
 
+	function GetItemUploadDirectory($item_id = '')
+	{
+		$gCms = cmsms();
+		$config = $gCms->GetConfig();
+		if ($item_id == '')
+			$item_id = 'tmp';
+		return cms_join_path($config['uploads_path'], 'feu_checklist_files', 'item_' . $item_id);
+	}
+
+	function ItemUploadDirectoryExists($item_id = '')
+	{
+		$path = $this->GetItemUploadDirectory($item_id);
+		return is_dir($path);
+	}
+
 }
 
 # vim:ts=4 sw=4 noet

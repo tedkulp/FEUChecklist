@@ -36,6 +36,45 @@ if (isset($params['submit']))
 		$error = $this->Lang('nosubjectgiven');
 	}
 
+	//No errors so far, now handle the upload (if any)
+	//We keep no file still valid so we can handle webinars
+	$filename = '';
+	if (!$error)
+	{
+		if (isset($_FILES[$id.'file']) && $_FILES[$id.'file']['tmp_name'] != '' && $_FILES[$id.'file']['name'] != '')
+		{
+			$filename = $_FILES[$id.'file']['name'];
+			$size = $_FILES[$id.'file']['size'];
+			$mime_type = $_FILES[$id.'file']['type'];
+
+			$destdir = $this->GetItemUploadDirectory($item_id);
+			cge_dir::mkdirr($destdir);
+			if (!is_dir($destdir))
+				die('directory still does not exist');
+			$handler = new cg_fileupload($id, $destdir);
+			//$handler->set_accepted_filetypes($this->GetPreference('allowed_filetypes'));
+			$res = $handler->handle_upload('file');
+			$err = $handler->get_error();
+			if (!$res && $err != cg_fileupload::NOFILE)
+			{
+				$error = sprintf("%s: %s",$this->Lang('file'), $this->GetUploadErrorMessage($err));
+			}
+			else if (!$res)
+			{
+				$error = $this->Lang('undefinederroruploading');
+			}
+			else
+			{
+				$filename = $res;
+				$field_names[] = 'filename';
+				$old_filename = $db->GetOne("SELECT filename FROM ".cms_db_prefix() . "module_feuchecklist_items WHERE id = ?", array($item_id));
+				if ($old_filename && $old_filename != $filename)
+					@unlink(cms_join_path($destdir, $old_filename));
+			}
+		}
+	}
+
+
 	if ( $error )
 	{
 		echo $this->ShowErrors($error);
@@ -75,14 +114,17 @@ else
 	{
 		$subject = $row['subject'];
 		$reference = $row['reference'];
+		$filename = $row['filename'];
 	}
 }
 
 #Display template
-$smarty->assign('startform', $this->CreateFormStart($id, 'edititem', $returnid));
+$smarty->assign('startform', $this->CreateFormStart($id, 'edititem', $returnid, 'post', 'multipart/form-data'));
 $smarty->assign('endform', $this->CreateFormEnd());
 $smarty->assign('inputsubject', $this->CreateInputText($id, 'subject', $subject, 30, 255));
 $smarty->assign('inputreference', $this->CreateInputText($id, 'reference', $reference, 30, 255));
+$smarty->assign('inputfile', $this->CreateFileUploadInput($id, 'file', '', 80));
+$smarty->assign('filename', $filename);
 
 $smarty->assign('hidden', $this->CreateInputHidden($id, 'item_id', $item_id));
 $smarty->assign('submit', $this->CreateInputSubmit($id, 'submit', lang('submit')));
