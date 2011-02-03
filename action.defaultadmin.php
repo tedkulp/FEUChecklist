@@ -19,12 +19,16 @@ if (isset($params['active_tab']))
 #The tabs
 echo $this->StartTabHeaders();
 echo $this->SetTabHeader('items', $this->Lang('items'));
+echo $this->SetTabHeader('config', $this->Lang('config'));
 echo $this->EndTabHeaders();
 
 #The content of the tabs
 echo $this->StartTabContent();
 echo $this->StartTab('items', $params);
 include(dirname(__FILE__).'/function.admin_itemstab.php');
+echo $this->EndTab();
+echo $this->StartTab('config', $params);
+include(dirname(__FILE__).'/function.admin_configtab.php');
 echo $this->EndTab();
 echo $this->EndTabContent();
 

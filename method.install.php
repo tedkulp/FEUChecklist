@@ -17,6 +17,7 @@ $flds = "
 	subject C(255),
 	reference C(255),
 	filename C(255),
+	filedesc C(255),
 	order_num I NOT NULL,
 	due_date " . CMS_ADODB_DT . ",
 	create_date " . CMS_ADODB_DT . ",

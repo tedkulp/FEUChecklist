@@ -64,7 +64,7 @@ class FEUChecklist extends CGExtensions
 
 	function IsAdminOnly()
 	{
-		return true;
+		return false;
 	}
 
 	function GetAdminSection()
@@ -91,6 +91,11 @@ class FEUChecklist extends CGExtensions
 	{
 		return true;
 		//$this->CheckPermission('Modify Site Preferences');
+	}
+
+	function SetParameters()
+	{
+		$this->RegisterModulePlugin();
 	}
 
 	function RegisterEvents()
@@ -128,6 +133,18 @@ class FEUChecklist extends CGExtensions
 
 	function DeleteUser($user_id)
 	{
+		$gCms = cmsms();
+		$db = $gCms->GetDb();
+		$db->Execute("DELETE FROM " . cms_db_prefix() . "module_feuchecklist_checked_items WHERE user_id = ?", array($user_id));
+	}
+
+	function GetItemUploadPath($item_id = '')
+	{
+		$gCms = cmsms();
+		$config = $gCms->GetConfig();
+		if ($item_id == '')
+			$item_id = 'tmp';
+		return $config['uploads_url'] . '/feu_checklist_files/item_' . $item_id;
 	}
 
 	function GetItemUploadDirectory($item_id = '')

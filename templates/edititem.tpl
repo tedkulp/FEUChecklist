@@ -29,6 +29,10 @@
 		<p class="pageinput"><br />{$inputfile}</p>
 	</div>
 	<div class="pageoverflow">
+		<p class="pagetext">{$mod->Lang('filedesc')}:</p>
+		<p class="pageinput">{$inputfiledesc}</p>
+	</div>
+	<div class="pageoverflow">
 		<p class="pagetext">&nbsp;</p>
 		<p class="pageinput">{$hidden}{$submit}{if isset($cancel)}{$cancel}{/if}</p>
 	</div>
