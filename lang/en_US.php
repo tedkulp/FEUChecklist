@@ -22,3 +22,4 @@ $lang['config'] = 'Config';
 $lang['clear_all_entries'] = 'Clear all checked items from all accounts';
 $lang['clearform'] = 'Clear All Items';
 $lang['all_items_cleared'] = 'All Items Cleared';
+$lang['links'] = 'Links';

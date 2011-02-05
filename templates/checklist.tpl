@@ -17,6 +17,7 @@
 			<th>&nbsp;</th>
 			<th>{$mod->Lang('subject')}</th>
 			<th>{$mod->Lang('reference')}</th>
+			<th>{$mod->Lang('links')}</th>
 			<th>{$mod->Lang('due_date')}</th>
 			<th>&nbsp;</th>
 			<th>&nbsp;</th>
@@ -28,6 +29,7 @@
 			<td>{$entry.item_count}</td>
 			<td>{$entry.subject}</td>
 			<td>{$entry.reference}</td>
+			<td>{$entry.links}</td>
 			<td>{$entry.due_date|date_format}</td>
 			<td>{$entry.filelink}</td>
 			<td>{$entry.checkbox}</td>

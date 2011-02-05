@@ -93,6 +93,11 @@ foreach ($items as &$one_item)
 		$this->CreateInputCheckbox($id, 'checked['.$one_item['id'].']', '1', in_array($one_item['id'], $checked_items));
 	$one_item['checkbox'] = $checkbox;
 
+	if (in_array($one_item['id'], $checked_items))
+	{
+		$one_item['class'] = 'Ticked';
+	}
+
 	$one_item['item_count'] = $count;
 	$count++;
 }

@@ -16,6 +16,7 @@ $flds = "
 	id I KEY AUTO,
 	subject C(255),
 	reference C(255),
+	links X,
 	filename C(255),
 	filedesc C(255),
 	order_num I NOT NULL,
