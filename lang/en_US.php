@@ -27,6 +27,7 @@ $lang['users'] = 'Users';
 $lang['username'] = 'Username';
 $lang['userupdated'] = 'User Updated';
 $lang['num_checked'] = 'Number Checked';
+$lang['lbl_back'] = 'Back';
 $lang['changelog'] = '<ul>
 <li>Version 0.2 - Allow editing of user checklists in the backend.</li>
 <li>Version 0.1 - Initial Release.</li>';

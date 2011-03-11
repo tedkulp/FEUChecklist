@@ -53,9 +53,6 @@ if (isset($params['checked']))
 		{
 			$db->Execute("INSERT INTO " . cms_db_prefix() . "module_feuchecklist_checked_items (user_id, item_id, create_date, modified_date) VALUES (?,?,now(),now())", array($user_id, $one_id));
 		}
-
-		$params = array('tab_message'=> 'userupdated', 'active_tab' => 'users');
-		$this->Redirect($id, 'defaultadmin', $returnid, $params);
 	}
 }
 
@@ -91,6 +88,7 @@ $smarty->assign('items', $items);
 $smarty->assign('startform', $this->CreateFormStart($id, 'edituser', $returnid, 'post', '', false, '', array('user_id' => $user_id)));
 $smarty->assign('endform', $this->CreateFormEnd());
 $smarty->assign('submit', $this->CreateInputSubmit($id, 'submit', $this->Lang('submit')));
+$smarty->assign('back_link', $this->CreateImageLink($id, 'defaultadmin', $returnid, $this->Lang('lbl_back'), 'icons/system/back.gif', array('active_tab' => 'users'), '', '', false));
 
 echo $this->ProcessTemplate('checklist.tpl');
 

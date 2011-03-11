@@ -8,6 +8,12 @@
 # This project's homepage is: http://www.cmsmadesimple.org
 *}
 
+{if $back_link}
+	<div class="pageoverflow" style="text-align: right; width: 80%;">
+		{$back_link}
+	</div><br />
+{/if}
+
 {$startform}
 {$submit}
 
