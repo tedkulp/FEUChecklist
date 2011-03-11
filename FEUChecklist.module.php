@@ -24,7 +24,7 @@ class FEUChecklist extends CGExtensions
 
 	function GetChangeLog()
 	{
-		return $this->ProcessTemplate('changelog.tpl');
+		return $this->Lang('changelog');
 	}
 	
 	function GetFriendlyName()
@@ -34,7 +34,7 @@ class FEUChecklist extends CGExtensions
 
 	function GetVersion()
 	{
-		return '0.1';
+		return '0.2';
 	}
 
 	function GetHelp()
