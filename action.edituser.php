@@ -61,22 +61,11 @@ if (isset($params['checked']))
 
 $items = $db->GetAll("SELECT * FROM " . cms_db_prefix() . "module_feuchecklist_items ORDER BY order_num");
 $count = 0;
+$row = 'row1';
 
 foreach ($items as &$one_item)
 {
-	$due_date = strtotime($one_item['due_date']);
-	if ($due_date <= time())
-	{
-		$one_item['class'] = 'PastDue';
-	}
-	else if (($due_date - (60 * 60 * 24 * 6)) <= time()) //6 days
-	{
-		$one_item['class'] = 'DueSoon';
-	}
-	else
-	{
-		$one_item['class'] = 'DueLater';
-	}
+	$one_item['class'] = $row = ($row == 'row1' ? 'row2' : 'row1');
 
 	$one_item['filelink'] = '&nbsp;';
 	if (!empty($one_item['filename']))
@@ -93,11 +82,6 @@ foreach ($items as &$one_item)
 	$checkbox = $this->CreateInputHidden($id, 'checked['.$one_item['id'].']', 0) .
 		$this->CreateInputCheckbox($id, 'checked['.$one_item['id'].']', '1', in_array($one_item['id'], $checked_items));
 	$one_item['checkbox'] = $checkbox;
-
-	if (in_array($one_item['id'], $checked_items))
-	{
-		$one_item['class'] = 'Ticked';
-	}
 
 	$one_item['item_count'] = $count;
 	$count++;

@@ -14,6 +14,7 @@
 		<tr>
 			<th>{$mod->Lang('id')}</th>
 			<th>{$mod->Lang('username')}</th>
+			<th>{$mod->Lang('num_checked')}</th>
 			<th class="pageicon">&nbsp;</th>
 		</tr>
 	</thead>
@@ -23,6 +24,7 @@
 		<tr class="{$rowclass}" onmouseover="this.className='{$rowclass}hover';" onmouseout="this.className='{$rowclass}';">
 			<td>{$entry->id}</td>
 			<td><a href="{$entry->editurl}">{$entry->username}</a></td>
+			<td>{$entry->count}</td>
 			<td>{$entry->editlink}</td>
 		</tr>
 	{/foreach}
